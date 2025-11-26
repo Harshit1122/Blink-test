@@ -1,0 +1,102 @@
+replicaCount: 3
+image:
+  repository: app
+  pullPolicy: IfNotPresent
+  tag: latest
+serviceAccount:
+  create: true
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  capabilities:
+    drop:
+    - ALL
+  allowPrivilegeEscalation: false
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5985
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: app.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: app-tls
+      hosts:
+        - app.example.com
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+env:
+  FARADAY_VERSION: "4.0"
+  FARADAY_MANAGE_RUNNING: "true"
+  FARADAY_DATABASE_NAME: "faraday"
+  FARADAY_DATABASE_USER: "faraday_user"
+  FARADAY_HOME: "/opt/faraday"
+  FARADAY_DISABLE_LOGS: "false"
+  FULL_API_DOC: "true"
+  GH_TOKEN: "ghp_placeholder_token_replace_with_real_token"
+  CI_COMMIT_REF_NAME: "main"
+  POSTGRES_USER: "faraday_user"
+  POSTGRES_PASSWORD: "super_secret_db_password_123"
+  POSTGRES_HOST: "postgres-service.production.svc.cluster.local"
+  POSTGRES_DB: "faraday"
+  PYTHONUNBUFFERED: "1"
+  PGSQL_USER: "faraday_user"
+  PGSQL_PASSWD: "super_secret_db_password_123"
+  PGSQL_HOST: "postgres-service.production.svc.cluster.local"
+  PGSQL_DBNAME: "faraday"
+  REDIS_SERVER: "redis-service.production.svc.cluster.local"
+secrets: {}
+database:
+  enabled: true
+  type: postgresql
+  host: "postgres-service.production.svc.cluster.local"
+  port: 5432
+  name: "faraday"
+  username: "faraday_user"
+  password: "super_secret_db_password_123"
+redis:
+  enabled: true
+  host: "redis-service.production.svc.cluster.local"
+  port: 6379
+  password: ""
+healthCheck:
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 5985
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 5985
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+persistence:
+  enabled: false
+  size: "1Gi"
+  storageClass: "standard"
+  mountPath: "/data"
