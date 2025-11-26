@@ -1,0 +1,93 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+.gitlab
+.github
+
+# Development files
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+.venv
+ENV
+.env
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.egg-info
+*.egg
+dist
+build
+.coverage
+htmlcov
+.pytest_cache
+.tox
+.cache
+nosetests.xml
+coverage.xml
+
+# Documentation
+docs/_build
+site
+
+# Logs
+*.log
+logs
+
+# Database
+*.db
+*.sqlite3
+*.sqlite
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Test files
+tests
+test
+testing
+pynixify
+
+# Configuration files (except production ones)
+*.ini.example
+*.ini.backup
+docker/server.ini
+scripts/docker-server.ini
+tests/data/server.ini
+
+# CI/CD configuration
+.gitlab-ci.yml
+.pre-commit-config.yaml
+docker-compose.yaml
+
+# Node.js (if any present)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python packaging
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter
+.ipynb_checkpoints
+
+# IDE
+.project
+.pydevproject
+.settings
+.ropeproject
