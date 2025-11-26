@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "5985:5985"
+    environment:
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=devpass
+      - REDIS_HOST=redis
+    depends_on:
+      - postgresql
+      - redis
+  postgresql:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: devdb
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgresql_data:/var/lib/postgresql
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/var/lib/data
+volumes:
+  postgresql_data:
+  redis_data:
