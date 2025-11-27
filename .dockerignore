@@ -1,0 +1,138 @@
+# Development files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Build artifacts
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# VCS
+.git/
+.gitignore
+.gitlab/
+.gitlab-ci.yml
+.gitattributes
+.github/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+tests/
+test/
+testing/
+
+# Documentation
+docs/_build/
+doc/_build/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Configuration files (except production ones)
+*.ini
+*.cfg
+*.yml
+*.yaml
+!docker/server.ini
+!scripts/docker-server.ini
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Faraday specific
+.faraday/
+!/.faraday/config/
+!/.faraday/logs/
+!/.faraday/session/
+!/.faraday/storage/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.yaml
+
+# CI/CD
+.gitlab/
+.gitlab-ci.yml
+.pre-commit-config.yaml
+
+# Python packaging
+setup.cfg
+setup.py
+requirements*.txt
+!requirements.txt
+Pipfile
+Pipfile.lock
+poetry.lock
+pyproject.toml
+
+# Node.js (if any present)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# SSL
+*.pem
+*.key
+*.crt
+
+# Backup files
+*.bak
+*.backup
