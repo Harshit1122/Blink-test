@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  ghost:
+    build:
+      context: .
+    ports:
+      - "2368:2368"
+    environment:
+      - NODE_ENV=production
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=ghost
+      - MYSQL_PASSWORD=ghostpass
+      - MYSQL_DATABASE=ghost
+    depends_on:
+      - mysql
+    volumes:
+      - ghost_content:/home/ghost/ghost/core/content
+      - ghost_apps:/home/ghost/apps
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:2368/ghost/api/admin/ping/', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) }).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghostpass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  mysql_data:
+  ghost_content:
+  ghost_apps:
